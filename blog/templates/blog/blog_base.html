@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags%}
+
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<main class="blog-archive">
+    <section class="header-page margin-bottom-cont">
+        <h1>{{ page.h1|default:page.title }}</h1>
+        {% include 'home/shared_breadcrumbs.html' %}
+    </section>
+
+    {% block blog_content %}{% endblock blog_content %}
+
+</main>
+{% endblock content %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<main>
+    <section class="contacts cont margin-bottom-cont">
+        <h1>{{ page.h1|default:page.title }}</h1>
+        <div class="contacts__box">
+            <div class="contacts__left-box">
+                <p>Для связи по любым вопросам пишите нам на почтовый адрес или воспользуйтесь формой для обратной связи.</p>
+                <p class="contacts__item"><img class="contacts__icon" src="{% static '/assets/img/icon/email.svg' %}"><a class="contacts__link" href="mailto:info@red-owl.ru">info@red-owl.ru</a></p>
+            </div>
+            <div class="contacts__right-box">
+                <form action="" method="post">
+                    
+                </form>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock content %}

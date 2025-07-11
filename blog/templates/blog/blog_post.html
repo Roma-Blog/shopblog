@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags%}
+
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<section class="post-content margin-bottom-cont cont">
+
+    <div class="post-content__left-box" itemscope itemtype="https://schema.org/Article">
+        <div class="breadcrumbs">
+            {% include 'home/shared_breadcrumbs.html' %}
+        </div>
+        {% image page.main_image width-880 as post_image %}
+        <img src="{{ post_image.url }}"
+            itemprop="image" 
+            alt="{{ post_image.alt }}" 
+            class="post-content__img">
+        <h1 itemprop="headline">{{ page.h1|default:page.title }}</h1>
+        <p class="post-content__date">Опубликовано: <span itemprop="datePublished" content="{{ page.first_published_at|date:"d-m-Y" }}">{{ page.first_published_at|date:"d.m.Y" }}</span></p>
+        {% for author in authors %}
+            <p class='post-content__count-autor' itemprop='author' itemscope itemtype='https://schema.org/Person' >Автор: 
+                <a itemprop='url' href='{{ author.url }}'><span  itemprop='name'>
+                    {{author.name}}
+                </span></a>
+            </p>
+        {% endfor %}
+        <p class="post-content__count-views">Количество просмотров: <span>{{ page.views }}</span></p>
+        <div itemprop="articleBody" class="post-content__content">
+            {{ page.body|richtext  }}
+        </div>
+        <div class="post-content__navigation">
+            {% if previous_post %}
+                <div class="post-content__nav-item post-content__nav-prev"> <span>&larr;</span> <a href="{% pageurl previous_post %}">{{ previous_post.title }}</a> </div>
+            {% endif %}
+            {% if next_post %}
+                <div class="post-content__nav-item post-content__nav-next"><a href="{% pageurl next_post %}" class="post-navigation__next">{{ next_post.title }}</a> <span>&rarr;</span></div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="post-content__right-box">
+        <div class="new-posts">
+            <div class="new-posts__title">Новые посты</div>
+            <ul class="new-posts__list">
+                {% for post in recent_posts %}
+                <li class="new-posts__item">
+                    {% if post.main_image %}
+                        {% image post.main_image width-64 as post_image %}
+                        <img src="{{ post_image.url }}" alt="{{ post.title }}">
+                    {% endif %}
+                    <div class="new-posts__item-info">
+                        <a href="{% pageurl post %}">{{ post.title }}</a>
+                        <div class="new-posts__item-date">{{ post.first_published_at|date:"d.m.Y" }}</div>
+                    </div>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</section>
+{% include 'blog/shared_posts_list.html' with posts_list=popular_posts %}
+{% endblock content %}

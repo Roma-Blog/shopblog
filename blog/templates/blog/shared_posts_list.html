@@ -1,0 +1,31 @@
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags%}
+
+<section class="popular-posts cont margin-bottom-cont">
+    <div class="popular-posts__title tipa-h2">Популярные записи</div>
+    <ul class="popular-posts__list">
+
+        {% for post in posts_list %}
+
+        <li class="popular-posts__item" style="background: url('{% if post.main_image %}{% image post.main_image width-640 as post_image %}{{ post_image.url }}{% endif %}') center center no-repeat;">
+            <a href="{% pageurl post %}" class="popular-posts__item-bg">
+                <p>{{ post.title }}</p>
+                <div class="popular-posts__item-info">
+                    <img src="{% static '/assets/img/icon/calendar.svg' %}" alt="Дата публикации">
+                    <span>
+                        {{ post.first_published_at|date:"d.m.Y" }}
+                    </span>
+                </div>
+                <div class="popular-posts__item-info">                                
+                    <img src="{% static '/assets/img/icon/eye.svg' %}" alt="Количество просмотров">
+                    <span>
+                        {{ post.views }}
+                    </span>
+                </div>
+                <img src="{% static '/assets/img/gear-l.svg' %}" class="popular-posts__gear">
+            </a>
+        </li>
+        {% endfor %}
+    </ul>
+</section>

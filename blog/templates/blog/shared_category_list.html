@@ -1,0 +1,11 @@
+<section class="category-post cont">
+    <ul class="category-post__list">
+        {% for category in categories %}
+            <li class="category-post__item">
+                <a href="{{ category.url }}" class="category-link">
+                    {{ category.title }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+</section>

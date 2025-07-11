@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags%}
+
+
+{% block extra_css %}
+
+{% endblock extra_css %}
+
+{% block content %}
+<section class="autor margin-bottom-cont cont">
+    <div class="breadcrumbs">
+        <ul class="breadcrumbs__list">
+            <li class="breadcrumbs__item">
+                <a href="/">Главная</a>
+            </li>
+            <li class="breadcrumbs__item">
+                {{ page.h1|default:page.title }}
+            </li>
+        </ul>
+    </div>
+
+    <div class="autor__box">
+        <div class="autor__box-left">
+            {% image page.photo width-320 as post_image %}
+            <img src="{{ post_image.url }}"
+                itemprop="image" 
+                alt="{{ page.h1|default:page.title }}" 
+                class="autor__img">
+        </div>
+        <div class="autor__box-right">
+            <h1>{{ page.h1|default:page.title }}</h1>
+            <p class="post-content__date">По образованию: {{ page.education }}</p>
+            <div class="post-content__content">
+            {{ page.bio|richtext }}
+            </div>
+        </div>
+    </div>
+
+</section>
+
+{% include 'blog/shared_posts_list.html' with posts_list=latest_posts %}
+
+{% endblock content %}

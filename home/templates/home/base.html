@@ -1,0 +1,116 @@
+{% load static %}
+{% load static wagtailimages_tags wagtailsettings_tags %}
+{% get_settings %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ page.seo_title|default:page.title }}</title>
+    <meta name="description" content="{{ page.seo_description }}">
+    <meta name="keywords" content="{{ page.seo_keywords }}">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'assets/img/favikon.ico' %}" >
+	<link rel="icon" type="image/png" href="{% static 'assets/img/favikon.png' %}">
+
+	<meta name="og:title" content="{{ page.seo_title|default:page.title }}">
+	<meta name="og:description" content="{{ page.seo_description }}">
+	<meta name="og:image" content="">
+	<meta name="og:url" content="">
+	<meta name="og:type" content="website">
+	<meta name="og:site_name" content="Блог Станочники">
+	<meta name="og:locale" content="ru_RU">
+
+    <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
+</head>
+<body>
+    <header class="header">
+	<div class="header__logo logo-box">
+            <a href="/" class="logo-box__link">
+                {% with header_logo=settings.settingssite.SiteDataSettings.logo_header %}
+                    {% if header_logo %}
+                        {% image header_logo width-150 as header_logo_image %}
+                        <img src="{{ header_logo_image.url }}" 
+                            width="{{ header_logo_image.width }}"
+                            height="{{ header_logo_image.height }}"
+                            alt="Логотип сайта Станочники"
+                            class="header-logo">
+                    {% endif %}
+                {% endwith %}
+            </a>
+	</div>
+	<nav class="header__nav">
+		<ul class="header__nav-list">
+			<li class="header__nav-item">
+				<a href="/blog/" class="header__nav-link">Блог</a>
+			</li>
+			<li class="header__nav-item">
+				<a href="/about/" class="header__nav-link">О нас</a>
+			</li>
+			<li class="header__nav-item">
+				<a href="/contacts/" class="header__nav-link">Контакты</a>
+			</li>
+		</ul>
+
+	</nav>
+</header>
+<!-- Вращающийся объект -->
+<div class="rotating-background" id="rotatingBackground"></div>
+
+    {% block content %}{% endblock %}
+
+<!-- footer -->
+<footer class="footer">
+    <div class="footer__box-color">
+        <div class="footer__cont cont">
+            <div class="footer__logo">
+                <a href="/" class="footer__logo-link">
+                    {% with logo_footer=settings.settingssite.SiteDataSettings.logo_footer %}
+                        {% if logo_footer %}
+                            {% image logo_footer width-150 as logo_footer_image %}
+                            <img src="{{ logo_footer_image.url }}" 
+                                width="{{ logo_footer_image.width }}"
+                                height="{{ logo_footer_image.height }}"
+                                alt="Светлый логотип сайта Станчники"
+                                class="footer__logo-img">
+                        {% endif %}
+                    {% endwith %}
+                </a>
+            </div>
+            <nav class="footer__nav">
+                <ul class="footer__nav-list">
+                    <li class="footer__nav-item">
+                        <a href="/blog/" class="footer__nav-link">Блог</a>
+                    </li>
+                    <li class="footer__nav-item">
+                        <a href="/about/" class="footer__nav-link">О нас</a>
+                    </li>
+                    <li class="footer__nav-item">
+                        <a href="/contacts/" class="footer__nav-link">Контакты</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+
+    <div class="footer__box-copyright cont">
+        <span class="footer__copyright">© 20 Станочники. Все права защищены.</span>
+        <a href="/privacy/">Политика конфиденциальности</a>
+    </div>
+</footer>
+
+<!-- JAVA SCRIPTS -->
+
+
+<!-- JS: обработка прокрутки -->
+    <script>
+        const rotatingBg = document.getElementById("rotatingBackground");
+
+        window.addEventListener("scroll", () => {
+            const rotation = window.scrollY * 0.1; // скорость вращения
+            rotatingBg.style.transform = `rotate(${rotation}deg)`;
+        });
+    </script>
+</body>
+</html>

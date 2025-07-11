@@ -1,0 +1,18 @@
+{% extends "blog/blog_base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags%}
+
+
+{% block blog_content %}
+
+    {% if page.get_categories %}
+        {% include 'blog/shared_category_list.html' with categories=page.get_categories %}
+    {% endif %}
+    {% include 'blog/shared_posts_catalog.html' with posts=posts %}
+    {% if page.seo_text %}
+        <section class="blog-seo-text">
+            {{ page.seo_text|richtext }}
+        </section>
+    {% endif %}
+{% endblock blog_content %}

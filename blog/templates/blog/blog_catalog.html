@@ -1,0 +1,34 @@
+{% extends "blog/blog_base.html" %}
+{% load static %}
+{% load wagtailcore_tags %}
+{% load wagtailimages_tags%}
+
+
+{% block blog_content %}
+
+    {% if page.get_categories %}
+        {% include 'blog/shared_category_list.html' with categories=page.get_categories %}
+    {% endif %}
+    {% include 'blog/shared_posts_catalog.html' with posts=posts %}
+    {% if page.seo_text %}
+        <section class="blog-seo-text">
+            {{ page.seo_text|richtext }}
+        </section>
+    {% endif %}
+    <section class="home-autors cont">
+        <div class="home-popular-posts__title tipa-h2">Наши авторы</div>
+        <ul class="home-autors__list">
+            {% for author in authors %}
+                <li class="home-autors__item">
+                    {% image author.photo width-280 as post_image %}
+                    <img src="{{ post_image.url }}" 
+                        alt="{{ author.title }}">
+                    <a href="{% pageurl author %}">{{ author.title }}</a>
+                    <p>{{ author.education }}</p>
+                </li>
+            {% empty %}
+                Нет авторов
+            {% endfor %}
+        </ul>
+    </section>
+{% endblock blog_content %}
