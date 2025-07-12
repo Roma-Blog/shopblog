@@ -17,8 +17,10 @@
                 <p class="contacts__item"><img class="contacts__icon" src="{% static '/assets/img/icon/email.svg' %}"><a class="contacts__link" href="mailto:info@red-owl.ru">info@red-owl.ru</a></p>
             </div>
             <div class="contacts__right-box">
-                <form action="" method="post">
-                    
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn">Отправить</button>
                 </form>
             </div>
         </div>

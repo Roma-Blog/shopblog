@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: sh -c "python manage.py migrate && gunicorn shopblog.wsgi:application --bind 0.0.0.0:8000"
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    environment:
+      - POSTGRES_DB=wagtail
+      - POSTGRES_USER=wagtail
+      - POSTGRES_PASSWORD=wagtail123
+      - POSTGRES_HOST=db
+      - DATABASE_URL=postgres://wagtail:wagtail123@db:5432/wagtail
+
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_DB=wagtail
+      - POSTGRES_USER=wagtail
+      - POSTGRES_PASSWORD=wagtail123
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

@@ -52,18 +52,13 @@ class PostMixin:
             queryset = queryset.filter(**filters)
             
         return queryset[:limit]
-    
 
-class BlogCatalog(BasePage, PaginationMixin, CategoriesMixin):
-
-    seo_text = RichTextField("SEO текст", blank=True)
+class BlogCatalogBase(BasePage, PaginationMixin, CategoriesMixin):
+    seo_text = RichTextField("SEO текст", blank=True, null=True)
     posts_per_page = models.PositiveIntegerField(
         default=6,
         verbose_name="Количество постов на странице"
     )
-
-    parent_page_types = ['home.HomePage']
-    subpage_types = ['blog.BlogCategoryPage']
 
     content_panels = BasePage.content_panels + [
         FieldPanel('seo_text'),
@@ -83,23 +78,19 @@ class BlogCatalog(BasePage, PaginationMixin, CategoriesMixin):
         context['authors'] = AuthorPage.objects.all()
 
         return context
+    
+    class Meta:
+        abstract = True
+
+class BlogCatalog(BlogCatalogBase):
+
+    parent_page_types = ['home.HomePage']
+    subpage_types = ['blog.BlogCategoryPage']
 
 
-class BlogCategoryPage(BasePage, PaginationMixin, CategoriesMixin):
-
-    posts_per_page = models.PositiveIntegerField(
-        default=6,
-        verbose_name="Количество постов на странице"
-    )
+class BlogCategoryPage(BlogCatalogBase):
 
     subpage_types = ['blog.BlogPost', 'blog.BlogCategoryPage']
-
-    def get_context(self, request, *args, **kwargs):
-
-        context = super().get_context(request, *args, **kwargs)
-        context = self.get_pagination_context(request, context)
-
-        return context
 
 
 class BlogPost(BasePage, PostMixin):

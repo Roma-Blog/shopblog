@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     "home",
     "blog",
     "search",
+    "apishopblog",
     'wagtail.contrib.settings',
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
@@ -89,10 +90,21 @@ WSGI_APPLICATION = "shopblog.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+#     }
+# }
+
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.getenv('POSTGRES_DB', 'wagtail'),
+        'USER': os.getenv('POSTGRES_USER', 'wagtail'),
+        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'wagtail123'),
+        'HOST': os.getenv('POSTGRES_HOST', 'db'),  # имя сервиса в docker-compose
+        'PORT': '5432',
     }
 }
 

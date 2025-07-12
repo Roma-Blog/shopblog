@@ -11,13 +11,14 @@
 
 
 <main>
-    <h1>{{ page.h1|default:page.title }}</h1>
-    
     {% if page.hero_text %}
-    <div class="hero-text">
-        {{ page.hero_text|richtext }}
-    </div>
+        <section class="cont margin-bottom-cont">
+            <div class="hero-text">
+                {{ page.hero_text|richtext }}
+            </div>
+        </section>
     {% endif %}
+    {% include 'blog/shared_posts_list.html' with posts_list=posts %}
     
 </main>
 {% endblock content %}

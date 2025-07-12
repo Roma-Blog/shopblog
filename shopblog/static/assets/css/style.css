@@ -8,12 +8,12 @@
 :root {
     --color-primary: #627281;
     --color-secondary: #f7f7ef;
-    --color-text: #373538;
-    --color-text-2: #562B1A;
+    --color-text: #4F5861;
+    --color-text-2: #203A54;
     --color-text-secondary: #6c757d;
-    --color-btn: #CB8A58;
-    --color-link: #CB8A58;
-    --color-link-bg: #cb8a583f;
+    --color-btn: #203A54;
+    --color-link: #203A54;
+    --color-link-bg: #9DAFC0;
 }
 
 body {
@@ -41,6 +41,7 @@ input{
     border: 1px solid var(--color-text-secondary);
     width: 100%;
 }
+.btn,
 input[type="submit"]{
     background-color: var(--color-btn);
     color: #fff;
@@ -225,7 +226,7 @@ table th{
 .posts__pagination a {
     color: var(--color-text-2);
     text-decoration: none;
-    padding: 4px 10px;
+    padding: 4px 11px;
     border: 2px solid var(--color-text-2);
     border-radius: 50%;
 }
@@ -378,6 +379,9 @@ table th{
 }
 .home-autors__item img{
     border-radius: 50%;
+    object-fit: cover;
+    height: 180px;
+    width: 180px;
 }
 .home-autors__item a{
     margin-top: 16px;
