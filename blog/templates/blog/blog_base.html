@@ -1,15 +1,13 @@
-{% extends "base.html" %}
+{% extends "home/base.html" %}
 {% load static %}
 {% load wagtailcore_tags %}
 {% load wagtailimages_tags%}
 
 
 
-{% block endtitle %}{% endblock %}
-{% block extra_css %}
-
-{% endblock extra_css %}
-
+{% block endtitle %}
+{% if request.GET.page %}, страница {{ request.GET.page }}{% endif %}
+{% endblock %}
 
 {% block content %}
 <main class="blog-archive">

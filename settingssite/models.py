@@ -30,6 +30,8 @@ class SiteDataSettings(BaseSiteSetting):
         help_text='Рекомендуемый размер: 180×50 пикселей'
     )
 
+    robots = models.TextField(blank=True, null=True, help_text="robots.txt")
+
     panels = [
         TabbedInterface([
             ObjectList([
@@ -42,6 +44,9 @@ class SiteDataSettings(BaseSiteSetting):
                 FieldPanel('logo_header'),
                 FieldPanel('logo_footer'),
             ], heading="Логотипы"),
+            ObjectList([
+                FieldPanel('robots'),
+            ], heading="Robots.txt"),
         ])
     ]
 

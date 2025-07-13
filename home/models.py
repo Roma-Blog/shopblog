@@ -7,6 +7,10 @@ from wagtail.fields import RichTextField
 from wagtail.admin.panels import TabbedInterface, ObjectList, FieldPanel
 from .forms import ContactForm
 
+from wagtail.contrib.sitemaps import Sitemap
+
+
+
 
 class BasePage(Page):
     h1 = models.CharField("H1 заголовок", max_length=255, blank=True, null=True)
@@ -36,7 +40,7 @@ class HomePage(BasePage):
 
     hero_text = RichTextField("Текст на главной", blank=True)
 
-    subpage_types = ['blog.BlogCatalog', 'blog.AuthorContainer', 'About', 'Contacts']
+    subpage_types = ['blog.BlogCatalog', 'blog.AuthorContainer', 'About', 'Contacts', 'Privacy']
 
     content_panels = BasePage.content_panels + [
         FieldPanel('hero_text'),
@@ -99,7 +103,7 @@ class Privacy(BasePage):
 
     privacy_text = RichTextField("Текст политики", blank=True)
 
-    parent_page_types = ['home.HomePage']
+    parent_page_types = ['HomePage']
 
     content_panels = BasePage.content_panels + [
         FieldPanel('privacy_text'),
