@@ -1,4 +1,3 @@
-version: '3.8'
 
 services:
   web:
@@ -13,16 +12,16 @@ services:
     environment:
       - POSTGRES_DB=wagtail
       - POSTGRES_USER=wagtail
-      - POSTGRES_PASSWORD=wagtail123
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
       - POSTGRES_HOST=db
-      - DATABASE_URL=postgres://wagtail:wagtail123@db:5432/wagtail
+      - DATABASE_URL=postgres://wagtail:${POSTGRES_PASSWORD}@db:5432/wagtail
 
   db:
     image: postgres:15
     environment:
       - POSTGRES_DB=wagtail
       - POSTGRES_USER=wagtail
-      - POSTGRES_PASSWORD=wagtail123
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
 

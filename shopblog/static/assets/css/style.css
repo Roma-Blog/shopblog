@@ -89,7 +89,9 @@ table th{
     margin-bottom: 16px;
     color: var(--color-text-2);
 }
-
+.hero-text{
+    margin-top: 64px;
+}
 .header__logo{
     display: flex;
     justify-content: center;

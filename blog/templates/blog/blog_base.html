@@ -4,14 +4,19 @@
 {% load wagtailimages_tags%}
 
 
+
+{% block endtitle %}{% endblock %}
 {% block extra_css %}
 
 {% endblock extra_css %}
 
+
 {% block content %}
 <main class="blog-archive">
     <section class="header-page margin-bottom-cont">
-        <h1>{{ page.h1|default:page.title }}</h1>
+        <h1>
+            {{ page.h1|default:page.title }}{% if request.GET.page %}, страница {{ request.GET.page }}{% endif %}
+        </h1>
         {% include 'home/shared_breadcrumbs.html' %}
     </section>
 

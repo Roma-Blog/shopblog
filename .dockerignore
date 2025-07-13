@@ -8,7 +8,7 @@ __pycache__
 *.pyc
 .DS_Store
 *.swp
-/venv/
+/.venv/
 /tmp/
 /.vagrant/
 /Vagrantfile.local
